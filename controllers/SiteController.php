@@ -64,6 +64,11 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionGamePreview()
+    {
+        return $this->render('game-preview');
+    }
+
     public function actionGames()
     {
         $this->layout = 'feature';

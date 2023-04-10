@@ -2,6 +2,7 @@
 
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use app\widgets\Banner;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
@@ -61,94 +62,68 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
 
     </header>
 
-    <main id="main" class="flex-shrink-0" role="main">
-        <div class="container">
-            <?php
-            echo Nav::widget([
-                'options' => ['class' => 'd-flex justify-content-center'],
-                'items' => [
-                    [
-                        'label' => '<i class="bi bi-house me1"></i> Beranda',
-                        'url' => ['/site/index'],
-                        'encode' => false,
-                        'active' => in_array($this->context->route, [
-                            'site/index',
-                        ])
-                    ],
-                    [
-                        'label' => '<i class="bi bi-controller me-1"></i> Semua Game',
-                        'url' => ['/report/index'],
-                        'active' => in_array($this->context->route, [
-                            'site/index',
-                        ]),
-                        'encode' => false,
-                    ],
-                    [
-                        'label' => '<i class="bi bi-search me-1"></i> Lacak Pesanan',
-                        'url' => ['/report/index'],
-                        'active' => in_array($this->context->route, [
-                            'site/index',
-                        ]),
-                        'encode' => false,
-                    ],
-                    [
-                        'label' => '<i class="bi bi-headset me-1"></i> Bantuan',
-                        'url' => ['/report/index'],
-                        'active' => in_array($this->context->route, [
-                            'site/index',
-                        ]),
-                        'encode' => false,
-                    ],
-                    [
-                        'label' => '<i class="bi bi-arrow-right-square me-1"></i> Logout',
-                        'encode' => false,
-                        'url' => ['/site/logout'],
-                        'linkOptions' => [
-                            'data-method' => 'POST'
-                        ]
+    <div class="ctnr">
+        <?php
+        echo Nav::widget([
+            'options' => ['class' => 'd-flex justify-content-center mt-3'],
+            'items' => [
+                [
+                    'label' => '<i class="bi bi-house me1"></i> Beranda',
+                    'url' => ['/site/index'],
+                    'encode' => false,
+                    'active' => in_array($this->context->route, [
+                        'site/index',
+                    ])
+                ],
+                [
+                    'label' => '<i class="bi bi-controller me-1"></i> Semua Game',
+                    'url' => ['/report/index'],
+                    'active' => in_array($this->context->route, [
+                        'site/index',
+                    ]),
+                    'encode' => false,
+                ],
+                [
+                    'label' => '<i class="bi bi-search me-1"></i> Lacak Pesanan',
+                    'url' => ['/report/index'],
+                    'active' => in_array($this->context->route, [
+                        'site/index',
+                    ]),
+                    'encode' => false,
+                ],
+                [
+                    'label' => '<i class="bi bi-headset me-1"></i> Bantuan',
+                    'url' => ['/report/index'],
+                    'active' => in_array($this->context->route, [
+                        'site/index',
+                    ]),
+                    'encode' => false,
+                ],
+                [
+                    'label' => '<i class="bi bi-arrow-right-square me-1"></i> Logout',
+                    'encode' => false,
+                    'url' => ['/site/logout'],
+                    'linkOptions' => [
+                        'data-method' => 'POST'
+                    ]
 
-                    ],
-                ]
-            ]);
+                ],
+            ]
+        ]);
 
-            ?>
-        </div>
-    </main>
+        ?>
+    </div>
 
     <main id="main" class="bg-primary flex-shrink-0" role="main">
         <div class="container text-white">
 
             <div class="row">
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-                </div>
+                <?= Banner::widget([
+                    'title' => 'Selamat Datang di Game Store',
+                    'subtitle' => 'Kami menyediakan berbagai macam game terbaru',
+                    // 'image' => Yii::getAlias('@web/img/banner.png')
+                    'image' => 'https://api.vocagame.com/media/Banner_Mobile_Legnds-d29d.webp'
+                ]) ?>
             </div>
         </div>
     </main>

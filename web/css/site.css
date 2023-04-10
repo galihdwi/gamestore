@@ -9,7 +9,7 @@ body {
 }
 
 main>.container {
-    padding: 70px 15px 20px;
+    padding: 70px 15px 50px;
 }
 
 .footer {
@@ -101,4 +101,13 @@ img {
     height: 100%;
     object-fit: cover;
     /* cover makes the image stretch the width and height of the container */
+}
+
+.ctnr {
+    padding: 50px 70px 20px;
+    display: block;
+}
+
+.w-10 {
+    width: 10%;
 }
