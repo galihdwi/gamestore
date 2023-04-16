@@ -77,9 +77,9 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
                 ],
                 [
                     'label' => '<i class="bi bi-controller me-1"></i> Semua Game',
-                    'url' => ['/site/games'],
+                    'url' => ['/report/index'],
                     'active' => in_array($this->context->route, [
-                        'site/games',
+                        'site/index',
                     ]),
                     'encode' => false,
                 ],
@@ -99,39 +99,69 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
                     ]),
                     'encode' => false,
                 ],
-                [
-                    'label' => '<i class="bi bi-arrow-right-square me-1"></i> Logout',
-                    'encode' => false,
-                    'url' => ['/site/logout'],
-                    'linkOptions' => [
-                        'data-method' => 'POST'
-                    ]
-
-                ],
             ]
         ]);
 
         ?>
     </div>
 
-    <main id="main" class="bg-primary flex-shrink-0" role="main">
-        <div class="container text-white">
-
-            <div class="row">
-                <?= Banner::widget([
-                    'title' => 'Selamat Datang di Game Store',
-                    'subtitle' => 'Kami menyediakan berbagai macam game terbaru',
-                    // 'image' => Yii::getAlias('@web/img/banner.png')
-                    'image' => 'https://api.vocagame.com/media/Banner_Mobile_Legnds-d29d.webp'
-                ]) ?>
-            </div>
-        </div>
-    </main>
-
     <main id="main" class="flex-shrink-0" role="main">
-        <div class="container">
+        <div class="ctnr">
             <?= Alert::widget() ?>
-            <?= $content ?>
+            <!-- leftbar -->
+            <div class="row">
+                <div class="col-md-2">
+                    <?= Nav::widget([
+                        'options' => ['class' => 'navbar-nav d-flex gap-3'],
+                        'items' => [
+                            [
+                                'label' => '<i class="bi bi-house me1"></i> Dashboard',
+                                'url' => ['/site/index'],
+                                'encode' => false,
+                                'active' => in_array($this->context->route, [
+                                    'site/index',
+                                ])
+                            ],
+                            [
+                                'label' => '<i class="bi bi-controller me-1"></i> Daftar Game',
+                                'url' => ['/admin/games'],
+                                'active' => in_array($this->context->route, [
+                                    'admin/games',
+                                ]),
+                                'encode' => false,
+                            ],
+                            [
+                                'label' => '<i class="bi bi-search me-1"></i> Daftar Postpaid',
+                                'url' => ['/report/index'],
+                                'active' => in_array($this->context->route, [
+                                    'site/index',
+                                ]),
+                                'encode' => false,
+                            ],
+                            [
+                                'label' => '<i class="bi bi-search me-1"></i> Daftar Prepaid',
+                                'url' => ['/report/index'],
+                                'active' => in_array($this->context->route, [
+                                    'site/index',
+                                ]),
+                                'encode' => false,
+                            ],
+                            [
+                                'label' => '<i class="bi bi-headset me-1"></i> Bantuan',
+                                'url' => ['/report/index'],
+                                'active' => in_array($this->context->route, [
+                                    'site/index',
+                                ]),
+                                'encode' => false,
+                            ],
+                        ]
+                    ]); ?>
+                </div>
+                <div class="col-md-10">
+                    <?= $content ?>
+                </div>
+            </div>
+
         </div>
     </main>
 

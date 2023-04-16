@@ -76,9 +76,6 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule',
         ],
-        'principal' => [
-            'class' => 'app\modules\principal\PrincipalModule',
-        ],
         'customer' => [
             'class' => 'app\modules\customer\CustomerModule',
         ],

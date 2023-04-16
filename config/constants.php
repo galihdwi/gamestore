@@ -11,7 +11,7 @@ define('YII_ENV', 'dev');
  */
 define('DB_DSN', 'mysql:host=127.0.0.1;dbname=gamestore');
 define('DB_USER', 'root');
-define('DB_PASS', 'akuadmine');
+define('DB_PASS', 'enteraja');
 
 /**
  * app
