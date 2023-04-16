@@ -1,37 +1,60 @@
 <?php
 
-use yii\helpers\Html;
+use app\assets\Select2Asset;
+use yii\bootstrap5\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var app\modules\admin\models\search\GamesSearch $model */
-/** @var yii\widgets\ActiveForm $form */
+Select2Asset::register($this);
 ?>
 
-<div class="games-table-search">
+<?php $form = ActiveForm::begin([
+    'action' => ['index'],
+    'method' => 'get',
+]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+<div class="row my-2">
+    <div class="d-grid d-md-flex justify-content-between gap-2">
+        <div class="d-grid d-md-flex align-items-center gap-2 col-md-6">
 
-    <?= $form->field($model, 'id') ?>
+            <?= Html::activeTextInput($model, 'searchQuery', [
+                'class' => 'form-control w-30',
+                'placeholder' => 'Search ...',
+            ]) ?>
 
-    <?= $form->field($model, 'name') ?>
+            <?= $form->field($model, 'displayQuery', ['inputOptions' => [
+                'class' => 'form-control',
+                'id' => 'display-options'
+            ], 'options' => [
+                'class' => 'form-group',
+            ]])->dropDownList([
+                10 => 10,
+                25 => 25,
+                50 => 50,
+                100 => 100,
+            ], [
+                'prompt' => 'Display',
+            ])->label(false) ?>
 
-    <?= $form->field($model, 'image') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        </div>
+        <?= Html::a('<i class="bi bi-plus me-1"></i> Games', ['create'], ['class' => 'btn btn-primary']) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+
+<input type="submit" hidden />
+
+<?php ActiveForm::end(); ?>
+
+<?php
+
+$this->registerJs("
+
+    $('#display-options').select2({
+        theme: 'bootstrap-5',
+        width: '100%',
+        placeholder: 'Display',
+    });
+    
+    $('#display-options').on('change', function() {
+        $(this).closest('form').submit();
+    });
+");

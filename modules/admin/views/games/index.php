@@ -2,11 +2,10 @@
 
 use app\libs\grid\AppGridView;
 use app\libs\widgets\ActionButtons;
-use app\models\table\GamesTable;
+use yii\grid\ActionColumn;
+use yii\grid\DataColumn;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var app\modules\admin\models\search\GamesSearch $searchModel */
@@ -25,9 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card border-1">
                 <div class="card-body">
                     <div id="search-report">
-                        <?php // $this->render('_search', ['model' => $reportSearch]); 
-                        ?>
-                        <?= Html::a('<i class="bi bi-plus me-1"></i> Games', ['create'], ['class' => 'btn btn-primary']) ?>
+                        <?= $this->render('_search', ['model' => $searchModel]); ?>
                     </div>
                     <div class="table-responsive">
                         <?= AppGridView::widget([
@@ -35,24 +32,49 @@ $this->params['breadcrumbs'][] = $this->title;
                             'dataProvider' => $dataProvider,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
+                                [
+                                    'class' => DataColumn::class,
+                                    'attribute' => 'name',
+                                    'header' => 'Nama Games',
+                                    'format' => 'raw',
+                                    'value' => function ($model) {
+                                        $image_url = Url::toRoute(['/admin/games/get-image', 'id' => $model->id]);
+                                        $imageTag = Html::img($image_url, ['class' => 'img-fluid me-2', 'style' => 'width: 50px; height: 50px; object-fit: cover;']);
+
+                                        return $imageTag;
+                                    }
+                                ],
                                 'name',
-                                'status',
+                                [
+                                    'class' => DataColumn::class,
+                                    'attribute' => 'status',
+                                    'header' => 'Status',
+                                    'format' => 'raw',
+                                    'value' => function ($model) {
+                                        $status = $model->status;
+                                        $statusTag = Html::tag('span', $status, ['class' => 'badge text-bg-success text-success bg-opacity-10']);
+                                        if ($status == 'Inactive') {
+                                            $statusTag = Html::tag('span', $status, ['class' => 'badge text-bg-danger text-danger bg-opacity-10']);
+                                        }
+
+                                        return $statusTag;
+                                    }
+                                ],
                                 [
                                     'class' => ActionColumn::class,
                                     'header' => 'Actions',
                                     'template' => '{button}',
                                     'buttons' => [
                                         'button' => function ($url, $model, $key) {
-                                            $delete = [
-                                                'text' => "<i class='bi bi-trash me-1'></i> Delete",
-                                                'url' => Url::to(['delete', 'id' => $model->id]),
-                                                'options' => ['data-method' => 'post', 'data-confirm' => 'Are you sure you want to delete this item?'],
+
+                                            $view = [
+                                                'text' => "<i class='bi bi-eye me-1'></i> Lihat",
+                                                'url' => Url::toRoute(['view', 'id' => Yii::$app->hashid->encode($model->id)]),
                                             ];
 
+
                                             return ActionButtons::widget([
-                                                'dropdownItems' => [
-                                                    $delete,
-                                                ],
+                                                'dropdownItems' => [$view],
                                             ]);
                                         }
                                     ]

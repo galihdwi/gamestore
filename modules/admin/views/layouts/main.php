@@ -42,7 +42,6 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
                     'label' => '<form class="d-flex" role="search">
                                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                                 </form>',
-                    // 'options' => ['class' => 'w-100'],
                     'encode' => false,
                 ],
                 [
@@ -110,7 +109,7 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
             <?= Alert::widget() ?>
             <!-- leftbar -->
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 border-end">
                     <?= Nav::widget([
                         'options' => ['class' => 'navbar-nav d-flex gap-3'],
                         'items' => [
@@ -157,7 +156,7 @@ $this->registerLinkTag(['rel' => 'icon', 'href' => Yii::getAlias('@web/favicon.i
                         ]
                     ]); ?>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 col-lg-10 px-md-5 px-lg-5">
                     <?= $content ?>
                 </div>
             </div>

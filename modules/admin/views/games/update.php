@@ -10,12 +10,20 @@ $this->params['breadcrumbs'][] = ['label' => 'Games Tables', 'url' => ['index']]
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="games-table-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+<div class="row">
+    <div class="col-md-6">
+        <div class="py-2">
+            <div class="d-flex flex-row py-2">
+                <div class="fw-bold fs-5">Ubah Data Games</div>
+            </div>
+            <div class="card border-1">
+                <div class="card-body">
+                    <?= $this->render('_form', [
+                        'model' => $model,
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

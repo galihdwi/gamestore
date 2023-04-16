@@ -1,33 +1,29 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var app\models\table\GamesTable $model */
-/** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="games-table-form">
+<?php $form = ActiveForm::begin(); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'id')->textInput() ?>
-
+<div class="mb-3">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+
+<div class="mb-3">
+    <?= $form->field($model, 'status')->dropDownList(['ACTIVE' => 'ACTIVE', 'INACTIVE' => 'INACTIVE']) ?>
+</div>
+
+<div class="mb-3">
+    <?= $form->field($model, 'image_file')->fileInput(['multiple' => false])->hint('Gambar dalam format: jpg, png, jpeg') ?>
+</div>
+
+<div class="d-grid d-md-flex gap-2 justify-content-md-end pt-3">
+    <?= Html::a('<i class="bi bi-arrow-left me-1"></i> Kembali', ['index'], ['class' => 'btn btn-light me-2']) ?>
+    <?= Html::submitButton('<i class="bi bi-check-circle me-1"></i> Simpan', [
+        'class' => 'btn btn-primary ',
+    ]) ?>
+</div>
+
+<?php ActiveForm::end(); ?>

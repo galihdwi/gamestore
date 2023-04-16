@@ -5,20 +5,19 @@ namespace app\modules\admin\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\table\GamesTable;
+use app\libs\validators\FilterValidatorTrim;
 
-/**
- * GamesSearch represents the model behind the search form of `app\models\table\GamesTable`.
- */
 class GamesSearch extends GamesTable
 {
-    /**
-     * {@inheritdoc}
-     */
+
+    public $searchQuery;
+    public $displayQuery;
+
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'image', 'status', 'created_at', 'updated_at'], 'safe'],
+            [['searchQuery', 'displayQuery', 'status'], 'safe'],
+            ['searchQuery', FilterValidatorTrim::class, 'filter' => 'trim'],
         ];
     }
 
@@ -40,12 +39,20 @@ class GamesSearch extends GamesTable
      */
     public function search($params)
     {
+        // load the search form data and validate
+        $this->load($params);
+
         $query = GamesTable::find();
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => $this->displayQuery != null ? $this->displayQuery : 10,
+            ],
+            'sort' => [
+                'enableMultiSort' => true,
+            ],
         ]);
 
         $this->load($params);
@@ -56,16 +63,10 @@ class GamesSearch extends GamesTable
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'status', $this->status]);
+        $query->andFilterWhere(['like', 'name', $this->searchQuery])
+            ->andFilterWhere(['status' => $this->status]);
+
 
         return $dataProvider;
     }
